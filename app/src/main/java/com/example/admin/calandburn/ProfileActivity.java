@@ -61,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         weightString = objCursor.getString(objCursor.getColumnIndex(UserTABLE.COLUMN_weight));
         actAnInt = objCursor.getInt(objCursor.getColumnIndex(UserTABLE.COLUMN_myact));
         bmiString = objCursor.getString(objCursor.getColumnIndex(UserTABLE.COLUMN_bmiuser));
-        weightStdString = null;
+        weightStdString = findMyAlertWeight(bmiString);
         bmrString = objCursor.getString(objCursor.getColumnIndex(UserTABLE.COLUMN_bmruser));
         factorString = objCursor.getString(objCursor.getColumnIndex(UserTABLE.COLUMN_factor));
         BmrADouble=Double.parseDouble(bmrString);
@@ -104,6 +104,28 @@ public class ProfileActivity extends AppCompatActivity {
         bmrTextView.setText(sumBmrString);
 
     } // Show View
+
+    private String findMyAlertWeight(String bmiString) {
+
+        String[] resultStrings = getResources().getStringArray(R.array.my_alert);
+        String myResult = null;
+        double douBMI = Double.parseDouble(bmiString);
+
+        if (douBMI < 18.5) {
+            myResult = resultStrings[0];
+        } else if (douBMI < 22.9) {
+            myResult = resultStrings[1];
+        } else if (douBMI < 24.9) {
+            myResult = resultStrings[2];
+        } else if (douBMI < 29.9) {
+            myResult = resultStrings[3];
+        } else if (douBMI < 39.9) {
+            myResult = resultStrings[4];
+        } else {
+            myResult = resultStrings[5];
+        }
+        return myResult;
+    }
 
     private void bindWidget() {
 
